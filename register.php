@@ -10,13 +10,13 @@
             $check->execute();
             $check->store_result();
             if($check->num_rows > 0){
-                $err = "Email già esistente. Accedi";
+                $err = "Email già esistente.<a href='login.php'>  Accedi</a>";
             }else{
                 $password = password_hash($password, PASSWORD_DEFAULT);
-                $reg = $conn->prepare('INSERT INTO users(email, password) VALUES (?,?)');
+                $reg = $conn->prepare('INSERT INTO users(email, password) VALUES (?,?)'); // faccio entrare i valori nel db
                 $reg->bind_param("ss",$email, $password);
                 if($reg->execute()){
-                    $msg = "Benvenuto, registrazione completata! Ora accedi.";
+                    $msg = "Benvenuto, registrazione completata! Ora <a href='login.php'> accedi</a>.";
                 }else{
                     $err = "Errore durante la registrazione.";
                 }
@@ -31,12 +31,12 @@
     <head>
         <meta charset="UTF-8">
         <title>Registrazione</title>
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/register_style.css">
     </head>
     <body>
         <div class="reg-title"><h2>Registrati</h2></div>
-        <?php if (isset($msg)) echo "<div class='msg'>$msg</div>"; ?>
-        <?php if (isset($err)) echo "<div class='err'>$err</div>"; ?>
+        <?php if (isset($msg)) echo "<div class='msg'>" . $msg . "</div>"; ?>
+        <?php if (isset($err)) echo "<div class='err'>" . $err . "</div>"; ?>
         <div class="reg">
             <form method="POST" action="">
                 <input type="email" name="email" placeholder="Email" required><br>

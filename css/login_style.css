@@ -1,0 +1,34 @@
+body{
+    background-color: black;
+}
+.log-title{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    color:white;
+}
+.log{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+.err_email{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    color:red;
+}
+
+.msg{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    color:greenyellow;
+}
+
+.err_pwd{
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    color:red;
+}
