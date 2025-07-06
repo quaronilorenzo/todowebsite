@@ -1,0 +1,14 @@
+To-Do List in PHP con Login e Registrazione
+
+Un'applicazione semplice per la gestione di attività (To-Do List), sviluppata con PHP, MySQL, HTML, CSS e un po' di JavaScript.  
+Include un sistema di registrazione e login utenti, e permette di aggiungere, modificare ed eliminare le proprie attività.
+
+---
+
+Tecnologie utilizzate
+
+- PHP (struttura semplice, senza framework)
+- MySQL (connessione sicura con prepared statements)
+- HTML + CSS (per la struttura e lo stile)
+- JavaScript (per piccole funzionalità dinamiche)
+

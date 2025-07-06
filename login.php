@@ -17,8 +17,10 @@
             $search->bind_result($id, $hash);
             $search->fetch();
             if(password_verify($password,$hash)){
-                $msg = "Benvenuto!";
                 $_SESSION['user_id'] = $id;
+                $_SESSION['user_email'] = $email_db;
+                header("Location: dashboard.php");
+                exit();
             }else{
                 $err_pwd = "<p>Password errata, riprova!</p>";
             }
@@ -26,7 +28,6 @@
             $err_email = "<p>Email non trovata</p>";
         }
     }
-    session_write_close();
 ?>
 <!DOCTYPE html>
 <html>
