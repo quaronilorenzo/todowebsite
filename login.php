@@ -18,7 +18,7 @@
             $search->fetch();
             if(password_verify($password,$hash)){
                 $_SESSION['user_id'] = $id;
-                $_SESSION['user_email'] = $email_db;
+                $_SESSION['user_email'] = $email;
                 header("Location: ./tasks/dashboard.php");
                 exit();
             }else{
