@@ -19,7 +19,7 @@
             if(password_verify($password,$hash)){
                 $_SESSION['user_id'] = $id;
                 $_SESSION['user_email'] = $email_db;
-                header("Location: dashboard.php");
+                header("Location: ./tasks/dashboard.php");
                 exit();
             }else{
                 $err_pwd = "<p>Password errata, riprova!</p>";
@@ -34,7 +34,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="./css/login_style.css">
+    <link rel="stylesheet" href="./css/login.css">
 </head>
 <body>
     <div class="log-title">
