@@ -7,7 +7,7 @@
     require '../includes/connection.php';
     $user_id = $_SESSION['user_id'];
     $email = $_SESSION['user_email'];
-    $stmt = $conn->prepare("SELECT id, content, created_at FROM tasks WHERE user_id  = ?"); // prendo le task che ha l'utente tramite la FK 
+    $stmt = $conn->prepare("SELECT id, content, created_at, nome_task FROM tasks WHERE user_id  = ?"); // prendo le task che ha l'utente tramite la FK 
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -33,8 +33,11 @@
                 echo "<p>Non hai ancora task!</p>";
             }else{
                 foreach ($tasks as $task){
-                        echo "<div class='task'>" . $task['content'] . "</div>";
+                        echo "<div class='task'>Nome: " . $task['nome_task'] . "</div>";
+                        echo "<div class='task'Contenuto: >" . $task['content'] . "</div>";
                         echo "<div class='task'>creato il: " . $task['created_at'] . "</div>";
+                        echo "<hr class='separator'>";
+
                 }
             }
         ?>
