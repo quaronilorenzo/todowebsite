@@ -43,6 +43,7 @@
                     echo "<strong>Nome:</strong> " . htmlspecialchars($task['nome_task']) . "<br>";
                     echo "<strong>Contenuto:</strong> " . htmlspecialchars($task['content']) . "<br>";
                     echo "<small>Creato il: " . htmlspecialchars($task['created_at']) . "</small>";
+                    echo "<button onclick=\"location.href='./delete_task.php'\"> 🗑️ Elimina </button>";
                     echo "</div><hr class='separator'>";
                 }
             } ?>

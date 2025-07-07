@@ -1,51 +1,45 @@
 <?php
-    /*
-        Mostra un form per inserire una nuova task. ok
-        Inserisce la task nel database legandola all'utente loggato. ok
-        Reindirizza l’utente alla dashboard.
-    */
     require '../includes/connection.php';
     session_start();
     if (!isset($_SESSION['user_id'])) {
-            header("Location: ../login.php");
-            exit();
+        header("Location: ../login.php");
+        exit();
     }   
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $user_id = $_SESSION['user_id']; // metto l'id del user della sessione 
+        $user_id = $_SESSION['user_id'];
         $content = $_POST['content'];
         $data_scadenza = $_POST['data_scadenza'];
         $nome_task = $_POST['nome_task'];
- 
-        $ok = true; // se c'è anche un solo campo vuoto non viene eseguita la query e ok diventerà un false, e farà uscire come errore il primo campo non compilato
+
+        $ok = true;
         if (empty($nome_task)){
             $err = "Il nome non può essere vuoto.";
             $ok = false;
         }
-        if (empty($content) && $ok == true){
+        if (empty($content) && $ok){
             $err = "Descrizione obbligatoria.";
             $ok = false;
         }
-        if (empty($data_scadenza) && $ok == true){
+        if (empty($data_scadenza) && $ok){
             $err = "La data di scadenza è obbligatoria.";
             $ok = false;
         }    
-        if($ok == true){            
+        if($ok){
             $check = $conn->prepare('SELECT nome_task FROM tasks WHERE nome_task = ? AND user_id = ?');
             $check->bind_param("si", $nome_task, $user_id);
             $check->execute();
             $check->store_result();
             if($check->num_rows > 0){
-                echo "Hai giù una task con questo nome!";
-            }else{
-                $stmt = $conn->prepare('INSERT INTO tasks(content, data_scadenza, user_id,nome_task) VALUES (?,?,?,?)');
-                $stmt->bind_param("ssis",$content,$data_scadenza,$user_id, $nome_task);
+                $err = "Hai già una task con questo nome!";
+            } else {
+                $stmt = $conn->prepare('INSERT INTO tasks(content, data_scadenza, user_id, nome_task) VALUES (?, ?, ?, ?)');
+                $stmt->bind_param("ssis", $content, $data_scadenza, $user_id, $nome_task);
                 if ($stmt->execute()) {
                     header("Location: dashboard.php?success=1");
                     exit();
                 } else {
                     $err = "Errore nell'inserimento. Riprova.";
                 }            
-                
                 $stmt->close();
             }
             $check->close();
@@ -53,22 +47,36 @@
     }   
 ?>
 
-<h2>Aggiungi nuova Task</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Aggiungi Task</title>
+    <link rel="stylesheet" href="../css/add_task.css">
+</head>
+<body>
 
-<?php if (!empty($err)) echo "<p class='error'>$msg</p>"; ?>
+    <div class="header">
+        <h1>To Do List - Creatore: Quaroni</h1>
+        <p><a href="https://github.com/quaronilorenzo/todowebsite" target="_blank">GitHub Repository</a></p>
+    </div>
 
-<form method="POST" action="">
-    <label for="nome_task">Nome Task:</label><br>
-    <input type="text" name="nome_task" required><br>
+    <div class="container">
+        <div class="title">
+            <h2>Aggiungi una nuova Task</h2>
+        </div>
 
-    <label for="content">Descrizione:</label><br>
-    <textarea name="content" rows="4" required></textarea><br>
+        <?php if (!empty($err)) echo "<div class='alert error'>$err</div>"; ?>
+        
+        <form method="POST" action="">
+            <input type="text" name="nome_task" placeholder="Nome Task" required>
 
-    <label for="scadenza">Data Scadenza:</label><br>
-    <input type="date" name="data_scadenza" required><br>
+            <textarea name="content" rows="4" placeholder="Descrizione" required></textarea>
 
-    <button type="submit">Aggiungi</button>
-</form>
+            <input type="date" name="data_scadenza" required>
 
-
-
+            <button type="submit">Aggiungi</button>
+        </form>
+    </div>
+</body>
+</html>
