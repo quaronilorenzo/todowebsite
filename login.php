@@ -2,9 +2,9 @@
 session_start();
 include 'includes/connection.php';
 
-$msg = "";
-$err_email = "";
-$err_pwd = "";
+$msg = ""; // perfetto può entrare
+$err_email = ""; // ERRORE email già in uso 
+$err_pwd = ""; // errore password sbagliata
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST["email"]);
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Login - To Do List</title>
-    <link rel="stylesheet" href="./css/login.css"> <!-- stesso stile del register -->
+    <link rel="stylesheet" href="./css/login.css">
 </head>
 <body>
     <div class="header">

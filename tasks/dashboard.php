@@ -22,25 +22,31 @@
     <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 <body>
-    <h2>Dashboard - Home </h2>
-    <button class="btn" onclick="location.href='add_task.php'">➕ Aggiungi Task</button>
-    <button class="btn" onclick="toggleTasks()">📋 Vedi le Tue Task</button>
-    <button class="btn" onclick="location.href='../logout.php'">🚪 Logout</button>
+    <div class="container">
+        <header class="header">
+            <h2>Dashboard - Home</h2>
+        </header>
 
-    <div id="taskList">
-        <h3>Le tue task</h3>
-        <?php if (empty($tasks)){
+        <div class="btn-group">
+            <button class="btn add-task" onclick="location.href='add_task.php'">➕ Aggiungi Task</button>
+            <button class="btn view-tasks" onclick="toggleTasks()">📋 Vedi le Tue Task</button>
+            <button class="btn logout" onclick="location.href='../logout.php'">🚪 Logout</button>
+        </div>
+
+        <div id="taskList">
+            <h3>Le tue task</h3>
+            <?php if (empty($tasks)) {
                 echo "<p>Non hai ancora task!</p>";
-            }else{
-                foreach ($tasks as $task){
-                        echo "<div class='task'>Nome: " . $task['nome_task'] . "</div>";
-                        echo "<div class='task'Contenuto: >" . $task['content'] . "</div>";
-                        echo "<div class='task'>creato il: " . $task['created_at'] . "</div>";
-                        echo "<hr class='separator'>";
-
+            } else {
+                foreach ($tasks as $task) {
+                    echo "<div class='task'>";
+                    echo "<strong>Nome:</strong> " . htmlspecialchars($task['nome_task']) . "<br>";
+                    echo "<strong>Contenuto:</strong> " . htmlspecialchars($task['content']) . "<br>";
+                    echo "<small>Creato il: " . htmlspecialchars($task['created_at']) . "</small>";
+                    echo "</div><hr class='separator'>";
                 }
-            }
-        ?>
+            } ?>
+        </div>
     </div>
 
     <script src="../js/dashboard.js"></script>
