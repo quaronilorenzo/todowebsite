@@ -35,7 +35,7 @@
                 $stmt = $conn->prepare('INSERT INTO tasks(content, data_scadenza, user_id, nome_task) VALUES (?, ?, ?, ?)');
                 $stmt->bind_param("ssis", $content, $data_scadenza, $user_id, $nome_task);
                 if ($stmt->execute()) {
-                    header("Location: dashboard.php?success=1");
+                    header("Location: dashboard.php");
                     exit();
                 } else {
                     $err = "Errore nell'inserimento. Riprova.";
@@ -73,7 +73,7 @@
 
             <textarea name="content" rows="4" placeholder="Descrizione" required></textarea>
 
-            <input type="date" name="data_scadenza" required>
+            <input type="date" name="data_scadenza"required min="<?= date('Y-m-d') ?>">
 
             <button type="submit">Aggiungi</button>
         </form>

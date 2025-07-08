@@ -7,7 +7,7 @@
     require '../includes/connection.php';
     $user_id = $_SESSION['user_id'];
     $email = $_SESSION['user_email'];
-    $stmt = $conn->prepare("SELECT id, content, created_at, nome_task FROM tasks WHERE user_id  = ?"); // prendo le task che ha l'utente tramite la FK 
+    $stmt = $conn->prepare("SELECT id, content, created_at, nome_task, data_scadenza FROM tasks WHERE user_id  = ?"); // prendo le task che ha l'utente tramite la FK 
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -42,8 +42,10 @@
                     echo "<div class='task'>";
                     echo "<strong>Nome:</strong> " . htmlspecialchars($task['nome_task']) . "<br>";
                     echo "<strong>Contenuto:</strong> " . htmlspecialchars($task['content']) . "<br>";
+                    echo "<strong>Data di scadenza:</strong> " . htmlspecialchars($task['data_scadenza']) . "<br>";
                     echo "<small>Creato il: " . htmlspecialchars($task['created_at']) . "</small>";
                     echo '<button onclick="location.href=\'delete_task.php?id=' . $task['id'] . '\'">🗑️ Elimina</button>';
+                    echo '<button onclick="location.href=\'modify_task.php?id=' . $task['id'] . '\'">✏️ Modifica</button>';
                     echo "</div><hr class='separator'>";
                 }
             } ?>

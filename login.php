@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="header">
-        <h1>📝 To Do List</h1>
+        <h1>To Do List</h1>
         <p>Creato da Quaroni • <a href="https://github.com/quaronilorenzo" target="_blank">GitHub</a></p>
     </div>
 
